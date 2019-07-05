@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    config:
+      uri: http://configserver.com:9999
+      label: master
+      name: application-provider-config
+      profile: dev
+  # bus通过kafka发送消息同步
+  kafka:
+    bootstrap-servers: kafka01:9092,kafka02:9092,kafka03:9092
+
+
+# 开启bus-refresh监控终端
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
+debug: true

@@ -1,0 +1,63 @@
+server:
+  port: 7777
+
+# 设置Spring-Data-JPA
+spring:
+  application:
+    name: provider
+  jpa:
+    # 指定在Spring容器启动时是否自动建表，默认为false
+    generate-ddl: true
+    # 指定是否在控制台显示其执行的SQL语句，默认false
+    show-sql: true
+    # 指定应用重启时是否重新创建更新表
+    hibernate:
+      ddl-auto: update
+
+  # 配置数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: 'jdbc:mysql://localhost:3306/architect?useUnicode=true&characterEncoding=utf8'
+    username: root
+    password: xiaohuoban
+
+
+  zipkin:
+    #监控方式1： 直连zipkin服务器地址
+    # base-url: http://localhost:9411/
+
+    #监控方式2： 异步将log发布到kafka zipkin服务器消费log
+    sender:
+      type: kafka
+  kafka:
+    bootstrap-servers: kafka01:9092,kafka02:9092,kafka03:9092
+
+
+  # 设置采样比例为1.0，即全部都需要，默认为0.1
+  sleuth:
+    sampler:
+      probability: 1.0
+
+# 为了方便查看sleuth的log 这里屏蔽了
+#logging:
+#  # 设置日志输出格式
+#  pattern:
+#    console: level-%level %msg%n
+#  level:
+#    root: info   # 控制Spring Boot启动时的日志级别
+#
+#    org.hibernate: info   # 控制hibernate运行时的日志级别
+#    # 在show-sql为true时，显示SQL中的动态参数值
+#    org.hibernate.type.descriptor.sql.BasicBinder: trace
+#    # 在show-sql为true时，显示SQL查询结果
+#    org.hibernate.type.descriptor.sql.BasicExtractor: trace
+#
+#    cn.net.chestnut.provider: error
+
+
+# 指定Eureka服务中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7070/eureka,http://localhost:7171/eureka

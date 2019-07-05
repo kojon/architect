@@ -1,51 +1,33 @@
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# for svn
-.svn
-
-# Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-*.log
-
-hs_err_pid*
-
-
-# Eclipse
-.classpath
-.project
-.settings/
-
-# Intellij
-.idea/
-*.iml
-*.iws
-
-# Mac
-.DS_Store
-
-# Maven
-log/
+HELP.md
 target/
-**/target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
 
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
-/build/
-/bin/
-/src/main/webapp/export/
-application.pid
-**/config/application.properties
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+**/config/*

@@ -1,0 +1,33 @@
+server:
+  port: 9999
+
+# 指定当前工程所关联的Git远程库地址
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:kojon/config-center.git
+          timeout: 5 # 获取到远程git库连接的超时时限，默认为5秒
+          default-label: master  # 指定要操作的远程git库的分支，默认master
+
+
+  profiles:
+    active: dev
+
+# 开发环境 spring:
+application:
+  name: config-dev
+  profiles: dev
+
+## 测试环境 spring:
+#application:
+#  name: config-test
+#  profiles: test
+
+# 开启actuator的所有web终端
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

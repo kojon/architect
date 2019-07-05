@@ -1,0 +1,50 @@
+
+server:
+  port: 9000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7070/eureka
+
+spring:
+  application:
+    name: zuul
+
+zuul:
+  routes:
+    # 设置微服务路由规则
+    consumer: /**
+
+  # 指定统一前辍
+  prefix: /abc
+
+  # 屏蔽指定URI
+  ignored-patterns: /**/save/**
+
+  # 屏蔽所有微服务名称
+  ignored-services: "*"
+  # 屏蔽指定微服务名称
+#  ignored-services: consumer-test
+
+  # 指定token被屏蔽
+  sensitive-headers: token
+
+  host:
+     connect-timeout-millis: 1000 #HTTP连接超时要比Hystrix的大
+     socket-timeout-millis: 2000   #socket超时
+
+
+  # 对限流策略进行配置
+  ratelimit:
+    enabled: true   # 开启限流
+    default-policy: # 设置限流策略
+      refresh-interval: 3  # 限流单位时间窗口
+      limit: 3      # 在指定的单位时间窗口内启动限流的限定值
+      quota: 1      # 指定限流的时间窗口数量
+      type: user,origin,url  # 指定限流查验对象类型
+
+
+
+
+

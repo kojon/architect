@@ -1,0 +1,78 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: consumer
+  # 连接Redis服务器
+  redis:
+    host: redis.server.host
+    password: pwd
+  main:
+    allow-bean-definition-overriding: true # 解决Feign name相同问题 @FeignClient(value = "provider")
+
+  zipkin:
+    #监控方式1： 直连zipkin服务器地址
+    # base-url: http://localhost:9411/
+
+    #监控方式2： 异步将log发布到kafka zipkin服务器消费log
+    sender:
+      type: kafka
+  kafka:
+    bootstrap-servers: kafka01:9092,kafka02:9092,kafka03:9092
+
+  # 设置采样比例为1.0，即全部都需要，默认为0.1
+  sleuth:
+    sampler:
+      probability: 1.0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7070/eureka
+      # defaultZone: http://eureka8100.com:8100/eureka,http://eureka8200.com:8200/eureka,http://eureka8300.com:8300/eureka
+
+  instance:
+    metadata-map:    # 添加指定的元数据  zuul的灰度发布功能
+      host-mark: running-host #正式环境
+#      host-mark: gray-host #灰度环境
+
+
+
+# 开启Feign对Hystrix的支持
+feign:
+  hystrix:
+    enabled: true
+
+  client:
+    config:
+      default:
+        connectTimeout: 5000  # 指定Feign连接提供者的超时时限
+        readTimeout: 5000    # 指定Feign从请求到获取提供者响应的超时时限
+
+  compression:
+    request:
+      enabled: true    # 开启对请求的压缩
+      # 指定对哪些MIME类型的文件进行压缩
+      mime-types: ["text/xml", "application/xml", "application/json"]
+      min-request-size: 2048  # 指定启用压缩的最小文件大小，单位字节
+    response:
+      enabled: true   # 开启对客户端响应的压缩
+
+# 开启actuator的所有web终端
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# 设置服务熔断时限，默认值为100ms
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+
+debug: false

@@ -1,0 +1,28 @@
+eureka:
+  client:
+    service-url: # 指定Eureka服务注册中心
+      defaultZone: http://localhost:7070/eureka
+
+spring:
+  application:   # 指定当前微服务对外(提供者)暴露的名称
+    name: stream-kafka
+
+  cloud:
+    stream:
+      kafka:
+        binder:    # 指定Stream所连接的Kafka集群
+          brokers: kafka01:9092,kafka01:9092,kafka03:9092
+          # 指定是否自动创建主题
+          auto-create-topics: true
+
+      bindings:
+        output:   # 指定要输出的消息主题及类型
+          destination: persons
+          content-type: text/plain
+
+        myChannel:   # 管道名称
+          destination: countries
+          content-type: text/plain
+
+        input:
+          destination: persons

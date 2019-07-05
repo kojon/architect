@@ -16,7 +16,7 @@ public class IndexController {
     private String hostName;
 
     @RequestMapping("/host")
-    public String index(){
-        return "eureka.instance.hostname="+hostName;
+    public String index() {
+        return "eureka.instance.hostname=" + hostName;
     }
 }
