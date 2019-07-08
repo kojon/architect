@@ -172,6 +172,20 @@ hystrix.command.default.execution.isolation.thread.interruptOnCancel
 
 关于执行线程的线程池，可以通过以下的这些属性设置。
 
+#### hystrix-dashboard
+
+运行项目后访问： http://localhost:8888/hystrix
+
+输入监控地址 http://localhost:8888/actuator/hystrix.stream
+
+title: consumer   //这里是项目的application.name 
+
+![](https://hlvan-st.oss-cn-beijing.aliyuncs.com/property/upload/20190708104117.png)
+
+当发生请求时，监控如下
+
+![](https://hlvan-st.oss-cn-beijing.aliyuncs.com/property/upload/20190708103810.png)
+
 #### 仪表盘-Turbine
 
 前面的方式是对单个消费者进行监控，我们也可以对集群进行整体监控。此时就需要使 用 Turbine 技术了。Turbine 能够汇集监控信息，并将聚合后的信息提供给 Hystrix Dashboard 来集中展示和监控。
